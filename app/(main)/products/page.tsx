@@ -17,6 +17,7 @@ import { useAppDispatch } from '@/lib/hooks';
 import { addToCart } from '@/lib/features/cart/cartSlice';
 import { useCartAnimation } from '@/hooks/useCartAnimation';
 import { mockProducts } from '@/data/mockData';
+import { Product } from '@/types';
 import { ShoppingCart, Eye, Star, Search } from 'lucide-react';
 import Link from 'next/link';
 
@@ -50,18 +51,12 @@ export default function ProductsPage() {
     }
   });
 
-  const handleAddToCart = (product: any, event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddToCart = (product: Product, event: React.MouseEvent<HTMLButtonElement>) => {
     const button = event.currentTarget;
     
     animateToCart(button, {
       onComplete: () => {
-        dispatch(addToCart({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          quantity: 1
-        }));
+        dispatch(addToCart(product));
       }
     });
   };

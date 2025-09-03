@@ -5,17 +5,19 @@ import { combineReducers } from '@reduxjs/toolkit';
 import authSlice from './features/auth/authSlice';
 import cartSlice from './features/cart/cartSlice';
 import themeSlice from './features/theme/themeSlice';
+import bookmarkSlice from './features/bookmark/bookmarkSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'cart', 'theme'],
+  whitelist: ['auth', 'cart', 'theme', 'bookmark'],
 };
 
 const rootReducer = combineReducers({
   auth: authSlice,
   cart: cartSlice,
   theme: themeSlice,
+  bookmark: bookmarkSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

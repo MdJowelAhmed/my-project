@@ -6,8 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { addToCart } from '@/lib/features/cart/cartSlice';
+import { toggleBookmark } from '@/lib/features/bookmark/bookmarkSlice';
 import { useCartAnimation } from '@/hooks/useCartAnimation';
 import { Product } from '@/types';
 import { ShoppingCart, Star, Minus, Plus, ArrowLeft, Heart } from 'lucide-react';
@@ -21,6 +22,10 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const dispatch = useAppDispatch();
   const { animateToCart } = useCartAnimation();
   const [quantity, setQuantity] = useState(1);
+  
+  // Check if product is bookmarked
+  const bookmarkedProducts = useAppSelector((state) => state.bookmark.bookmarkedProducts);
+  const isBookmarked = bookmarkedProducts.some((p) => p.id === product.id);
 
   const handleAddToCart = (event?: React.MouseEvent<HTMLButtonElement>) => {
     if (event) {
@@ -42,6 +47,10 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const handleBuyNow = () => {
     handleAddToCart();
     router.push('/checkout');
+  };
+
+  const handleBookmark = () => {
+    dispatch(toggleBookmark(product));
   };
 
   return (
@@ -163,8 +172,13 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 >
                   Buy Now
                 </Button>
-                <Button size="lg" variant="outline">
-                  <Heart className="h-5 w-5" />
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={handleBookmark}
+                  className={isBookmarked ? 'text-red-500 border-red-500 hover:bg-red-50' : ''}
+                >
+                  <Heart className={`h-5 w-5 ${isBookmarked ? 'fill-current' : ''}`} />
                 </Button>
               </div>
             </div>

@@ -33,10 +33,12 @@ import {
 export default function Navbar() {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const { items } = useAppSelector((state) => state.cart);
+  const { bookmarkedProducts } = useAppSelector((state) => state.bookmark);
   const dispatch = useAppDispatch();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const cartItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const bookmarkCount = bookmarkedProducts.length;
 
   const handleLogout = () => {
     dispatch(logout());
@@ -84,12 +86,53 @@ export default function Navbar() {
 
             {/* Notifications */}
             {isAuthenticated && (
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-4 w-4" />
-                <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs">
-                  3
-                </Badge>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="relative">
+                    <Bell className="h-4 w-4" />
+                    <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs">
+                      3
+                    </Badge>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-80">
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg mb-3">Notifications</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-start space-x-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">Order Confirmed</p>
+                          <p className="text-xs text-muted-foreground">Your order #12345 has been confirmed and is being processed.</p>
+                          <p className="text-xs text-muted-foreground mt-1">2 minutes ago</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3 p-3 rounded-lg bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800">
+                        <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">Special Offer</p>
+                          <p className="text-xs text-muted-foreground">Get 20% off on all jerseys this weekend!</p>
+                          <p className="text-xs text-muted-foreground mt-1">1 hour ago</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3 p-3 rounded-lg bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">Delivery Update</p>
+                          <p className="text-xs text-muted-foreground">Your package is out for delivery and will arrive today.</p>
+                          <p className="text-xs text-muted-foreground mt-1">3 hours ago</p>
+                        </div>
+                      </div>
+                    </div>
+                    <DropdownMenuSeparator className="my-3" />
+                    <div className="text-center">
+                      <Button variant="ghost" size="sm" className="text-xs">
+                        View All Notifications
+                      </Button>
+                    </div>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
 
             {/* Cart */}
@@ -106,9 +149,16 @@ export default function Navbar() {
 
             {/* Wishlist */}
             {isAuthenticated && (
-              <Button variant="ghost" size="icon">
-                <Heart className="h-4 w-4" />
-              </Button>
+              <Link href="/wishlist">
+                <Button variant="ghost" size="icon" className="relative">
+                  <Heart className="h-4 w-4" />
+                  {bookmarkCount > 0 && (
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs">
+                      {bookmarkCount}
+                    </Badge>
+                  )}
+                </Button>
+              </Link>
             )}
 
             {/* Profile / Login */}

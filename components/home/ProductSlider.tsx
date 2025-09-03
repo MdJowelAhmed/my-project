@@ -56,13 +56,7 @@ export default function ProductSlider({ title, products, category }: ProductSlid
     
     animateToCart(button, {
       onComplete: () => {
-        dispatch(addToCart({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          quantity: 1
-        }));
+        dispatch(addToCart(product));
       }
     });
   };
