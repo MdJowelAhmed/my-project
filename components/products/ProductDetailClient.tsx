@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { addToCart } from '@/lib/features/cart/cartSlice';
 import { toggleBookmark } from '@/lib/features/bookmark/bookmarkSlice';
 import { useCartAnimation } from '@/hooks/useCartAnimation';
+import { useWishlistAnimation } from '@/hooks/useWishlistAnimation';
 import { Product } from '@/types';
 import { ShoppingCart, Star, Minus, Plus, ArrowLeft, Heart } from 'lucide-react';
 
@@ -21,6 +22,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { animateToCart } = useCartAnimation();
+  const { animateToWishlist } = useWishlistAnimation();
   const [quantity, setQuantity] = useState(1);
   
   // Check if product is bookmarked
@@ -49,8 +51,17 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
     router.push('/checkout');
   };
 
-  const handleBookmark = () => {
-    dispatch(toggleBookmark(product));
+  const handleBookmark = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    if (event) {
+      const button = event.currentTarget;
+      animateToWishlist(button, {
+        onComplete: () => {
+          dispatch(toggleBookmark(product));
+        }
+      });
+    } else {
+      dispatch(toggleBookmark(product));
+    }
   };
 
   return (
@@ -175,7 +186,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 <Button 
                   size="lg" 
                   variant="outline"
-                  onClick={handleBookmark}
+                  onClick={(e) => handleBookmark(e)}
                   className={isBookmarked ? 'text-red-500 border-red-500 hover:bg-red-50' : ''}
                 >
                   <Heart className={`h-5 w-5 ${isBookmarked ? 'fill-current' : ''}`} />

@@ -8,6 +8,11 @@ export const mockProducts: Product[] = [
     price: 89.99,
     originalPrice: 120.00,
     image: 'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+    images: [
+      'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+      'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg',
+      'https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg'
+    ],
     category: 'jersey',
     description: 'Official Argentina national team home jersey with premium quality fabric.',
     inStock: true,
@@ -20,6 +25,10 @@ export const mockProducts: Product[] = [
     price: 79.99,
     originalPrice: 110.00,
     image: 'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+    images: [
+      'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+      'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg'
+    ],
     category: 'jersey',
     description: 'Manchester United official away jersey for the current season.',
     inStock: true,
@@ -31,6 +40,11 @@ export const mockProducts: Product[] = [
     name: 'Real Madrid Home Jersey',
     price: 94.99,
     image: 'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+    images: [
+      'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+      'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg',
+      'https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg'
+    ],
     category: 'jersey',
     description: 'Real Madrid home jersey with authentic club crest and sponsors.',
     inStock: true,
@@ -42,6 +56,10 @@ export const mockProducts: Product[] = [
     name: 'Barcelona Training Kit',
     price: 69.99,
     image: 'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+    images: [
+      'https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg',
+      'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg'
+    ],
     category: 'jersey',
     description: 'Official Barcelona training kit with moisture-wicking technology.',
     inStock: false,
@@ -56,6 +74,11 @@ export const mockProducts: Product[] = [
     price: 149.99,
     originalPrice: 180.00,
     image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+    images: [
+      'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+      'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+      'https://images.pexels.com/photos/2048548/pexels-photo-2048548.jpeg'
+    ],
     category: 'shoes',
     description: 'Comfortable running shoes with Air Max cushioning technology.',
     inStock: true,
@@ -67,6 +90,10 @@ export const mockProducts: Product[] = [
     name: 'Adidas Ultraboost 22',
     price: 179.99,
     image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+    images: [
+      'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+      'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg'
+    ],
     category: 'shoes',
     description: 'Premium running shoes with Boost midsole technology.',
     inStock: true,
@@ -78,6 +105,11 @@ export const mockProducts: Product[] = [
     name: 'Puma RS-X Reinvention',
     price: 119.99,
     image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+    images: [
+      'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+      'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+      'https://images.pexels.com/photos/2048548/pexels-photo-2048548.jpeg'
+    ],
     category: 'shoes',
     description: 'Retro-inspired lifestyle sneakers with modern comfort.',
     inStock: true,
@@ -89,6 +121,10 @@ export const mockProducts: Product[] = [
     name: 'Converse Chuck Taylor All Star',
     price: 79.99,
     image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+    images: [
+      'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
+      'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg'
+    ],
     category: 'shoes',
     description: 'Classic canvas sneakers that never go out of style.',
     inStock: true,
@@ -103,6 +139,11 @@ export const mockProducts: Product[] = [
     price: 89.99,
     originalPrice: 120.00,
     image: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+      'https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg',
+      'https://images.pexels.com/photos/1545558/pexels-photo-1545558.jpeg'
+    ],
     category: 'bags',
     description: 'Premium leather backpack perfect for work and travel.',
     inStock: true,
@@ -114,6 +155,10 @@ export const mockProducts: Product[] = [
     name: 'Canvas Messenger Bag',
     price: 59.99,
     image: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+      'https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg'
+    ],
     category: 'bags',
     description: 'Durable canvas messenger bag for everyday use.',
     inStock: true,
@@ -125,6 +170,11 @@ export const mockProducts: Product[] = [
     name: 'Hiking Backpack 40L',
     price: 129.99,
     image: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+      'https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg',
+      'https://images.pexels.com/photos/1545558/pexels-photo-1545558.jpeg'
+    ],
     category: 'bags',
     description: 'Professional hiking backpack with multiple compartments.',
     inStock: true,
@@ -136,6 +186,10 @@ export const mockProducts: Product[] = [
     name: 'Travel Duffel Bag',
     price: 79.99,
     image: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg',
+      'https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg'
+    ],
     category: 'bags',
     description: 'Spacious travel duffel bag with wheels and handles.',
     inStock: false,
@@ -150,6 +204,11 @@ export const mockProducts: Product[] = [
     price: 199.99,
     originalPrice: 249.99,
     image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+    images: [
+      'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg',
+      'https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg'
+    ],
     category: 'others',
     description: 'High-quality wireless headphones with noise cancellation.',
     inStock: true,
@@ -161,6 +220,10 @@ export const mockProducts: Product[] = [
     name: 'Smart Fitness Watch',
     price: 299.99,
     image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+    images: [
+      'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg'
+    ],
     category: 'others',
     description: 'Advanced fitness tracker with heart rate monitoring.',
     inStock: true,
@@ -172,6 +235,11 @@ export const mockProducts: Product[] = [
     name: 'Portable Bluetooth Speaker',
     price: 79.99,
     image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+    images: [
+      'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg',
+      'https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg'
+    ],
     category: 'others',
     description: 'Compact speaker with powerful sound and long battery life.',
     inStock: true,
@@ -183,6 +251,10 @@ export const mockProducts: Product[] = [
     name: 'Gaming Mouse RGB',
     price: 49.99,
     image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+    images: [
+      'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg',
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg'
+    ],
     category: 'others',
     description: 'Professional gaming mouse with customizable RGB lighting.',
     inStock: true,
@@ -197,6 +269,11 @@ export const mockProducts: Product[] = [
     price: 49.99,
     originalPrice: 69.99,
     image: 'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+    images: [
+      'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+      'https://images.pexels.com/photos/6210953/pexels-photo-6210953.jpeg',
+      'https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg'
+    ],
     category: 'islamic',
     description: 'Handwoven prayer mat with beautiful Islamic patterns.',
     inStock: true,
@@ -208,6 +285,10 @@ export const mockProducts: Product[] = [
     name: 'Islamic Wall Art Calligraphy',
     price: 89.99,
     image: 'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+    images: [
+      'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+      'https://images.pexels.com/photos/6210953/pexels-photo-6210953.jpeg'
+    ],
     category: 'islamic',
     description: 'Beautiful Arabic calligraphy wall art for home decoration.',
     inStock: true,
@@ -219,6 +300,11 @@ export const mockProducts: Product[] = [
     name: 'Quran with Translation',
     price: 39.99,
     image: 'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+    images: [
+      'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+      'https://images.pexels.com/photos/6210953/pexels-photo-6210953.jpeg',
+      'https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg'
+    ],
     category: 'islamic',
     description: 'Holy Quran with English translation and commentary.',
     inStock: true,
@@ -230,6 +316,10 @@ export const mockProducts: Product[] = [
     name: 'Islamic Prayer Beads (Tasbih)',
     price: 24.99,
     image: 'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+    images: [
+      'https://images.pexels.com/photos/8988734/pexels-photo-8988734.jpeg',
+      'https://images.pexels.com/photos/6210953/pexels-photo-6210953.jpeg'
+    ],
     category: 'islamic',
     description: 'Traditional wooden prayer beads for dhikr and meditation.',
     inStock: true,

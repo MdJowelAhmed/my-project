@@ -150,7 +150,7 @@ export default function Navbar() {
             {/* Wishlist */}
             {isAuthenticated && (
               <Link href="/wishlist">
-                <Button variant="ghost" size="icon" className="relative">
+                <Button variant="ghost" size="icon" className="relative transition-transform duration-150" data-wishlist-icon>
                   <Heart className="h-4 w-4" />
                   {bookmarkCount > 0 && (
                     <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs">

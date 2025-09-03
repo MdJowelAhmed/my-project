@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { removeBookmark } from '@/lib/features/bookmark/bookmarkSlice';
 import { addToCart } from '@/lib/features/cart/cartSlice';
 import { useCartAnimation } from '@/hooks/useCartAnimation';
+import { useWishlistAnimation } from '@/hooks/useWishlistAnimation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -14,6 +15,7 @@ import { Product } from '@/types';
 export default function WishlistPage() {
   const dispatch = useAppDispatch();
   const { animateToCart } = useCartAnimation();
+  const { animateToWishlist } = useWishlistAnimation();
   const { bookmarkedProducts } = useAppSelector((state) => state.bookmark);
 
   const handleAddToCart = (product: Product, event: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,8 +28,18 @@ export default function WishlistPage() {
     });
   };
 
-  const handleRemoveBookmark = (productId: string) => {
-    dispatch(removeBookmark(productId));
+  const handleRemoveBookmark = (productId: string, event?: React.MouseEvent<HTMLButtonElement>) => {
+    if (event) {
+      const button = event.currentTarget;
+      
+      animateToWishlist(button, {
+        onComplete: () => {
+          dispatch(removeBookmark(productId));
+        }
+      });
+    } else {
+      dispatch(removeBookmark(productId));
+    }
   };
 
   return (
@@ -74,7 +86,7 @@ export default function WishlistPage() {
                       size="icon"
                       variant="outline"
                       className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                      onClick={() => handleRemoveBookmark(product.id)}
+                      onClick={(e) => handleRemoveBookmark(product.id, e)}
                     >
                       <X className="h-4 w-4" />
                     </Button>

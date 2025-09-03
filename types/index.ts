@@ -13,6 +13,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   image: string;
+  images?: string[];
   category: 'jersey' | 'shoes' | 'bags' | 'others' | 'islamic';
   description: string;
   inStock: boolean;
