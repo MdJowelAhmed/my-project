@@ -94,7 +94,7 @@ export default function Navbar() {
 
             {/* Cart */}
             <Link href="/cart">
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative transition-transform duration-150" data-cart-icon>
                 <ShoppingCart className="h-4 w-4" />
                 {cartItemCount > 0 && (
                   <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs">

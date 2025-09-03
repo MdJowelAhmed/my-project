@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useAppDispatch } from '@/lib/hooks';
 import { addToCart } from '@/lib/features/cart/cartSlice';
+import { useCartAnimation } from '@/hooks/useCartAnimation';
 import { Product } from '@/types';
 import { ShoppingCart, Eye, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -20,6 +21,7 @@ interface ProductSliderProps {
 
 export default function ProductSlider({ title, products, category }: ProductSliderProps) {
   const dispatch = useAppDispatch();
+  const { animateToCart } = useCartAnimation();
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     slidesToScroll: 1,
@@ -49,8 +51,20 @@ export default function ProductSlider({ title, products, category }: ProductSlid
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
-  const handleAddToCart = (product: Product) => {
-    dispatch(addToCart(product));
+  const handleAddToCart = (product: Product, event: React.MouseEvent<HTMLButtonElement>) => {
+    const button = event.currentTarget;
+    
+    animateToCart(button, {
+      onComplete: () => {
+        dispatch(addToCart({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1
+        }));
+      }
+    });
   };
 
   return (
@@ -117,7 +131,7 @@ export default function ProductSlider({ title, products, category }: ProductSlid
                     <div className="flex space-x-2">
                       <Button
                         size="sm"
-                        onClick={() => handleAddToCart(product)}
+                        onClick={(e) => handleAddToCart(product, e)}
                         disabled={!product.inStock}
                         className="flex-1"
                       >

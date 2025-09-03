@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { useAppDispatch } from '@/lib/hooks';
 import { addToCart } from '@/lib/features/cart/cartSlice';
+import { useCartAnimation } from '@/hooks/useCartAnimation';
 import { mockProducts } from '@/data/mockData';
 import { ShoppingCart, Eye, Star, Search } from 'lucide-react';
 import Link from 'next/link';
@@ -28,6 +29,7 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState('name');
   
   const dispatch = useAppDispatch();
+  const { animateToCart } = useCartAnimation();
 
   const filteredProducts = mockProducts.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -48,8 +50,20 @@ export default function ProductsPage() {
     }
   });
 
-  const handleAddToCart = (product: any) => {
-    dispatch(addToCart(product));
+  const handleAddToCart = (product: any, event: React.MouseEvent<HTMLButtonElement>) => {
+    const button = event.currentTarget;
+    
+    animateToCart(button, {
+      onComplete: () => {
+        dispatch(addToCart({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1
+        }));
+      }
+    });
   };
 
   return (
@@ -152,7 +166,7 @@ export default function ProductsPage() {
                   <div className="flex space-x-2">
                     <Button
                       size="sm"
-                      onClick={() => handleAddToCart(product)}
+                      onClick={(e) => handleAddToCart(product, e)}
                       disabled={!product.inStock}
                       className="flex-1"
                     >

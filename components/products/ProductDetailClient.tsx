@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useAppDispatch } from '@/lib/hooks';
 import { addToCart } from '@/lib/features/cart/cartSlice';
+import { useCartAnimation } from '@/hooks/useCartAnimation';
 import { Product } from '@/types';
 import { ShoppingCart, Star, Minus, Plus, ArrowLeft, Heart } from 'lucide-react';
 
@@ -18,11 +19,23 @@ interface ProductDetailClientProps {
 export default function ProductDetailClient({ product }: ProductDetailClientProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { animateToCart } = useCartAnimation();
   const [quantity, setQuantity] = useState(1);
 
-  const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      dispatch(addToCart(product));
+  const handleAddToCart = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    if (event) {
+      const button = event.currentTarget;
+      animateToCart(button, {
+        onComplete: () => {
+          for (let i = 0; i < quantity; i++) {
+            dispatch(addToCart(product));
+          }
+        }
+      });
+    } else {
+      for (let i = 0; i < quantity; i++) {
+        dispatch(addToCart(product));
+      }
     }
   };
 
@@ -134,7 +147,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  onClick={handleAddToCart}
+                  onClick={(e) => handleAddToCart(e)}
                   disabled={!product.inStock}
                   className="flex-1"
                 >
