@@ -23,23 +23,23 @@ export function ProductCard({ product }: ProductCardProps) {
   const { animateToWishlist } = useWishlistAnimation();
   const bookmarkedProducts = useAppSelector((state) => state.bookmark.bookmarkedProducts);
   const isBookmarked = bookmarkedProducts.some(p => p.id === product.id);
-  
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [hoverCount, setHoverCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
-  
+
   const images = product.images || [product.image];
   const hasMultipleImages = images.length > 1;
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    
+
     if (isHovered && hasMultipleImages) {
       // Start animation immediately on hover
       setIsAnimating(true);
-      
+
       // After 2 seconds, change to next image
       timer = setTimeout(() => {
         if (isHovered) { // Only change if still hovering
@@ -56,7 +56,7 @@ export function ProductCard({ product }: ProductCardProps) {
         setIsAnimating(false);
       }, 2000);
     }
-    
+
     return () => {
       if (timer) clearTimeout(timer);
     };
@@ -78,7 +78,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     await animateToCart(e.currentTarget as HTMLElement);
     dispatch(addToCart(product));
   };
@@ -86,7 +86,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const handleBookmark = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     await animateToWishlist(e.currentTarget as HTMLElement);
     dispatch(toggleBookmark(product));
   };
@@ -101,9 +101,9 @@ export function ProductCard({ product }: ProductCardProps) {
     const productUrl = `${window.location.origin}/products/${product.id}`;
     const productTitle = encodeURIComponent(product.name);
     const productDescription = encodeURIComponent(`Check out this amazing product: ${product.name} for only $${product.price}`);
-    
+
     let shareUrl = '';
-    
+
     switch (platform) {
       case 'facebook':
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`;
@@ -126,21 +126,21 @@ export function ProductCard({ product }: ProductCardProps) {
       default:
         return;
     }
-    
+
     if (shareUrl) {
       window.open(shareUrl, '_blank', 'width=600,height=400');
       setShowShareModal(false);
     }
   };
 
-  const discount = product.originalPrice 
+  const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
   return (
     <div className="group relative bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
       {/* Image Container */}
-      <div 
+      <div
         className="relative aspect-square overflow-hidden bg-gray-100"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -151,7 +151,7 @@ export function ProductCard({ product }: ProductCardProps) {
             -{discount}%
           </Badge>
         )}
-        
+
         {/* Stock Badge */}
         {!product.inStock && (
           <Badge className="absolute top-2 right-2 z-10 bg-gray-500">
@@ -167,13 +167,12 @@ export function ProductCard({ product }: ProductCardProps) {
               src={images[currentImageIndex]}
               alt={product.name}
               fill
-              className={`object-cover transition-transform duration-500 ease-in-out ${
-                isAnimating ? '-translate-x-full' : 'translate-x-0'
-              }`}
+              className={`object-cover transition-transform duration-500 ease-in-out ${isAnimating ? '-translate-x-full' : 'translate-x-0'
+                }`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
-          
+
           {/* Next Image (slides in from right during animation) */}
           {hasMultipleImages && isAnimating && (
             <div className="absolute inset-0">
@@ -181,9 +180,8 @@ export function ProductCard({ product }: ProductCardProps) {
                 src={images[hoverCount === 1 ? 1 : (images.length > 2 ? 2 : 1)]}
                 alt={product.name}
                 fill
-                className={`object-cover transition-transform duration-500 ease-in-out ${
-                  isAnimating ? 'translate-x-0' : 'translate-x-full'
-                }`}
+                className={`object-cover transition-transform duration-500 ease-in-out ${isAnimating ? 'translate-x-0' : 'translate-x-full'
+                  }`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
@@ -199,11 +197,11 @@ export function ProductCard({ product }: ProductCardProps) {
               className="bg-white/90 hover:bg-white text-gray-800"
               onClick={handleBookmark}
             >
-              <Heart 
-                className={`h-4 w-4 ${isBookmarked ? 'fill-red-500 text-red-500' : ''}`} 
+              <Heart
+                className={`h-4 w-4 ${isBookmarked ? 'fill-red-500 text-red-500' : ''}`}
               />
             </Button>
-            
+
             <Button
               size="sm"
               variant="secondary"
@@ -213,7 +211,7 @@ export function ProductCard({ product }: ProductCardProps) {
             >
               <ShoppingCart className="h-4 w-4" />
             </Button>
-            
+
             <Button
               size="sm"
               variant="secondary"
@@ -222,7 +220,7 @@ export function ProductCard({ product }: ProductCardProps) {
             >
               <Share2 className="h-4 w-4" />
             </Button>
-            
+
             <Link href={`/products/${product.id}`}>
               <Button
                 size="sm"
@@ -241,14 +239,14 @@ export function ProductCard({ product }: ProductCardProps) {
         <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
           {product.name}
         </h3>
-        
+
         <div className="flex items-center gap-1 mb-2">
           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
           <span className="text-sm text-gray-600">
             {product.rating} ({product.reviews})
           </span>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <span className="text-lg font-bold text-gray-900">
             ${product.price.toFixed(2)}
@@ -275,7 +273,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-3">
               <Button
                 variant="outline"
@@ -287,7 +285,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 </div>
                 Facebook
               </Button>
-              
+
               <Button
                 variant="outline"
                 className="flex items-center gap-2 p-3 h-auto"
@@ -298,7 +296,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 </div>
                 WhatsApp
               </Button>
-              
+
               <Button
                 variant="outline"
                 className="flex items-center gap-2 p-3 h-auto"
@@ -309,7 +307,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 </div>
                 Twitter
               </Button>
-              
+
               <Button
                 variant="outline"
                 className="flex items-center gap-2 p-3 h-auto"
@@ -320,7 +318,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 </div>
                 LinkedIn
               </Button>
-              
+
               <Button
                 variant="outline"
                 className="flex items-center gap-2 p-3 h-auto col-span-2"
