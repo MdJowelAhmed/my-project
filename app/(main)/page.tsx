@@ -1,7 +1,10 @@
 import BannerSlider from '@/components/home/BannerSlider';
 import ProductSlider from '@/components/home/ProductSlider';
 import FAQ from '@/components/home/FAQ';
+import Link from 'next/link';
+import ReviewSection from '@/components/home/ReviewSection';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
+
 import { mockProducts } from '@/data/mockData';
 
 export default function HomePage() {
@@ -29,6 +32,9 @@ export default function HomePage() {
       <section className="container mx-auto px-4">
         <WhyChooseUs />
       </section>
+
+      {/* Review Section */}
+      <ReviewSection />
 
       {/* FAQ Section */}
       <section className="bg-muted/30 py-16">
