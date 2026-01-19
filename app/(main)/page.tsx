@@ -37,7 +37,7 @@ export default function HomePage() {
       <ReviewSection />
 
       {/* FAQ Section */}
-      <section className="bg-muted/30 py-16">
+      <section className=" py-16">
         <div className="container mx-auto px-4">
           <FAQ />
         </div>

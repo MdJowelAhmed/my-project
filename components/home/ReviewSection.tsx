@@ -106,7 +106,7 @@ const ReviewSection = () => {
     };
 
     return (
-        <section className="py-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+        <section className="">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <motion.div
@@ -123,7 +123,7 @@ const ReviewSection = () => {
                         What Our Customers Say
                     </h2>
                     <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-                        Don't just take our word for it. Here's what our community has to say about their experience.
+                        Don`t just take our word for it. Here`s what our community has to say about their experience.
                     </p>
                 </motion.div>
 
@@ -150,7 +150,7 @@ const ReviewSection = () => {
                         >
                             <Card className="w-full h-full bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 border-none rounded-2xl overflow-hidden relative">
                                 {/* Decorative Quote Icon background */}
-                                <div className="absolute top-0 right-0 -mr-8 -mt-8 opacity-5 pointer-events-none">
+                                <div className="absolute top-5 right-10 -mr-8 -mt-8 opacity-5 pointer-events-none">
                                     <Quote size={200} />
                                 </div>
 

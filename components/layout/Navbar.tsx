@@ -47,9 +47,10 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/products', label: 'Products' },
-    { href: '/services', label: 'Services' },
     { href: '/islamic-corner', label: 'Islamic Corner' },
     { href: '/about', label: 'About Us' },
+    
+    { href: '/services', label: 'Services' },
   ];
 
   return (
