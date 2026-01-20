@@ -21,7 +21,7 @@ export default function HomePage() {
       </section>
 
       {/* Products Sections */}
-      <section className="container mx-auto px-4 space-y-16">
+      <section className="container mx-auto px-4 p-6 space-y-16">
         <ProductSlider title="Jersey Collection" products={jerseyProducts} category="jersey" />
         <ProductSlider title="Premium Shoes" products={shoesProducts} category="shoes" />
         <ProductSlider title="Bags & Accessories" products={bagsProducts} category="bags" />

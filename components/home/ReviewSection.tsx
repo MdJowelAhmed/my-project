@@ -194,7 +194,7 @@ const ReviewSection = () => {
                                         </div>
 
                                         <blockquote className="text-xl md:text-2xl text-gray-700 italic font-medium leading-relaxed text-center md:text-left">
-                                            "{currentReview.content}"
+                                            {currentReview.content}
                                         </blockquote>
 
                                         <p className="text-sm text-gray-400 uppercase tracking-wider font-semibold">
