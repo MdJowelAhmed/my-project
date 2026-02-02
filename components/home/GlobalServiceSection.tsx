@@ -40,7 +40,7 @@ export default function GlobalServiceSection() {
                         >
                             We provide our services to clients worldwide, spanning across all continents.
                             From North America to Asia, Europe to Africa, and everywhere in between -
-                            we're here to help your business succeed globally.
+                            we`re here to help your business succeed globally.
                         </motion.p>
 
                         <motion.div
