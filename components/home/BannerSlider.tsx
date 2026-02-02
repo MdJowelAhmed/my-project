@@ -70,9 +70,9 @@ export default function BannerSlider() {
                       {slide.ctaText}
                     </Button>
                   </Link>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+                  {/* <Button size="lg" variant="outline" className="bg-blue-600 hover:bg-blue-700 text-white border-white text-white  hover:text-black">
                     {slide.ctaSecondary}
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
             </div>
