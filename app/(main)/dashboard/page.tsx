@@ -4,24 +4,24 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useAppSelector } from '@/lib/hooks';
-import { mockOrders } from '@/data/mockData';
 import { Package, DollarSign, Heart, Clock, Gift, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardOverview() {
   const { user } = useAppSelector((state) => state.auth);
   const { items } = useAppSelector((state) => state.cart);
-  
-  const recentOrders = mockOrders.slice(0, 3);
-  const totalOrders = mockOrders.length;
-  const totalSpent = mockOrders.reduce((sum, order) => sum + order.total, 0);
+  const orders = useAppSelector((state) => state.orders.orders);
+
+  const recentOrders = orders.slice(0, 3);
+  const totalOrders = orders.length;
+  const totalSpent = orders.reduce((sum, order) => sum + order.total, 0);
 
   return (
     <div className="space-y-8">
       {/* Welcome */}
       <div>
         <h1 className="text-3xl font-bold">Welcome back, {user?.name?.split(' ')[0]}!</h1>
-        <p className="text-muted-foreground">Here's what's happening with your account.</p>
+        <p className="text-muted-foreground">Here is what is happening with your account.</p>
       </div>
 
       {/* Stats Cards */}

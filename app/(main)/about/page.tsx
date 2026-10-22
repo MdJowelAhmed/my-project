@@ -39,7 +39,7 @@ export default function AboutPage() {
         <div className="text-center space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold">About EcomStore</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We're more than just an e-commerce platform. We're your trusted partner in finding
+            We are more than just an e-commerce platform. We are your trusted partner in finding
             quality products, exceptional service, and building lasting relationships with our customers.
           </p>
         </div>
@@ -55,7 +55,7 @@ export default function AboutPage() {
             </p>
             <p className="text-muted-foreground">
               We believe that shopping should be more than just a transaction. It should be an
-              experience that delights, inspires, and adds value to your life. That's why we
+              experience that delights, inspires, and adds value to your life. That is why we
               carefully curate every product, ensuring it meets our high standards for quality,
               design, and functionality.
             </p>
@@ -117,7 +117,7 @@ export default function AboutPage() {
               <CardContent className="p-6 space-y-4">
                 <h3 className="text-xl font-semibold">Customer First</h3>
                 <p className="text-muted-foreground">
-                  Every decision we make is centered around our customers' needs, satisfaction,
+                  Every decision we make is centered around our customers needs, satisfaction,
                   and long-term success.
                 </p>
               </CardContent>
@@ -170,7 +170,7 @@ export default function AboutPage() {
             Get in Touch
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Have questions or want to learn more about our mission? We'd love to hear from you.
+            Have questions or want to learn more about our mission? We would love to hear from you.
           </p>
           <Button size="lg" variant="secondary">
             Contact Us

@@ -1,19 +1,26 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
-import { removeFromCart, updateQuantity } from '@/lib/features/cart/cartSlice';
+import { removeFromCart, updateQuantity, applyPromo, clearPromo } from '@/lib/features/cart/cartSlice';
 import { Minus, Plus, X, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
+import { calculatePromoDiscount, findOfferByCode } from '@/lib/promo';
+import { getCartTotals } from '@/lib/cartTotals';
+import { mockOffers } from '@/data/mockData';
+import { toast } from 'sonner';
 
 export default function CartPage() {
-  const { items, total } = useAppSelector((state) => state.cart);
+  const { items, total, promoCode, promoDiscount } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [promoInput, setPromoInput] = useState(promoCode ?? '');
+  const { tax, total: grandTotal } = getCartTotals(total, promoDiscount);
 
   const handleRemoveItem = (id: string) => {
     dispatch(removeFromCart(id));
@@ -27,6 +34,24 @@ export default function CartPage() {
     router.push('/checkout');
   };
 
+  const handleApplyPromo = () => {
+    const offer = findOfferByCode(promoInput);
+    if (!offer) {
+      toast.error('Invalid promo code', {
+        description: `Try: ${mockOffers.map((o) => o.code).join(', ')}`,
+      });
+      return;
+    }
+    const discount = calculatePromoDiscount(total, promoInput);
+    dispatch(applyPromo({ code: offer.code, discount }));
+    toast.success(`Applied ${offer.code}`);
+  };
+
+  const handleClearPromo = () => {
+    setPromoInput('');
+    dispatch(clearPromo());
+  };
+
   if (items.length === 0) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -34,7 +59,7 @@ export default function CartPage() {
           <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground" />
           <h1 className="text-3xl font-bold">Your Cart is Empty</h1>
           <p className="text-lg text-muted-foreground">
-            Looks like you haven't added any items to your cart yet.
+            Looks like you have not added any items to your cart yet.
           </p>
           <Link href="/products">
             <Button size="lg">Continue Shopping</Button>
@@ -124,18 +149,24 @@ export default function CartPage() {
                     <span>Subtotal ({items.length} items)</span>
                     <span>${(total || 0).toFixed(2)}</span>
                   </div>
+                  {promoDiscount > 0 && promoCode && (
+                    <div className="flex justify-between text-green-600">
+                      <span>Promo ({promoCode})</span>
+                      <span>-${promoDiscount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span>Shipping</span>
                     <span className="text-green-600">Free</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tax</span>
-                    <span>${((total || 0) * 0.1).toFixed(2)}</span>
+                    <span>${tax.toFixed(2)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-semibold text-lg">
                     <span>Total</span>
-                    <span>${((total || 0) * 1.1).toFixed(2)}</span>
+                    <span>${grandTotal.toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -156,9 +187,23 @@ export default function CartPage() {
               <CardContent className="p-4 space-y-4">
                 <h3 className="font-medium">Have a promo code?</h3>
                 <div className="flex space-x-2">
-                  <Input placeholder="Enter code" />
-                  <Button variant="outline">Apply</Button>
+                  <Input
+                    placeholder="e.g. NEWYEAR25"
+                    value={promoInput}
+                    onChange={(e) => setPromoInput(e.target.value)}
+                  />
+                  <Button type="button" variant="outline" onClick={handleApplyPromo}>
+                    Apply
+                  </Button>
                 </div>
+                {promoCode && (
+                  <Button type="button" variant="ghost" size="sm" onClick={handleClearPromo}>
+                    Remove {promoCode}
+                  </Button>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  Demo codes: {mockOffers.map((o) => o.code).join(', ')}
+                </p>
               </CardContent>
             </Card>
           </div>

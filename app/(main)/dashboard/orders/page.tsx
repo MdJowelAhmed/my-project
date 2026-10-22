@@ -12,11 +12,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { mockOrders } from '@/data/mockData';
 import { Order } from '@/types';
 import { Eye, Download, Package } from 'lucide-react';
+import { useAppSelector } from '@/lib/hooks';
 
 export default function OrdersPage() {
+  const orders = useAppSelector((state) => state.orders.orders);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   const getStatusColor = (status: string) => {
@@ -42,7 +43,7 @@ export default function OrdersPage() {
       </div>
 
       <div className="space-y-4">
-        {mockOrders.map((order) => (
+        {orders.map((order) => (
           <Card key={order.id}>
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between space-y-4 md:space-y-0">
@@ -148,7 +149,7 @@ export default function OrdersPage() {
           </Card>
         ))}
 
-        {mockOrders.length === 0 && (
+        {orders.length === 0 && (
           <Card>
             <CardContent className="p-12 text-center space-y-4">
               <Package className="h-12 w-12 mx-auto text-muted-foreground" />

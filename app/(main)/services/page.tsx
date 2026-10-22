@@ -75,7 +75,7 @@ export default function ServicesPage() {
             <h1 className="text-4xl md:text-5xl font-bold">Our Services</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               We provide comprehensive web development solutions to help your business succeed online.
-              From design to deployment, we've got you covered.
+              From design to deployment, we have got you covered.
             </p>
           </div>
 
@@ -97,7 +97,7 @@ export default function ServicesPage() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="space-y-3">
-                      <h4 className="font-semibold">What's Included:</h4>
+                      <h4 className="font-semibold">What is included:</h4>
                       <ul className="space-y-2">
                         {service.features.map((feature, index) => (
                           <li key={index} className="flex items-center space-x-3">
@@ -124,7 +124,7 @@ export default function ServicesPage() {
               Ready to Start Your Project?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Let's discuss your requirements and create something amazing together.
+              Let us discuss your requirements and create something amazing together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary">

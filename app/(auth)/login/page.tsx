@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,14 +12,16 @@ import { login } from '@/lib/features/auth/authSlice';
 import { mockUser } from '@/data/mockData';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
   const router = useRouter();
+  const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
+  const redirectTo = searchParams.get('redirect') || '/';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ export default function LoginPage() {
         token: 'mock-jwt-token',
       }));
       setIsLoading(false);
-      router.push('/');
+      router.push(redirectTo.startsWith('/') ? redirectTo : '/');
     }, 1000);
   };
 
@@ -104,7 +106,7 @@ export default function LoginPage() {
 
       <div className="text-center">
         <p className="text-sm text-muted-foreground">
-          Don't have an account?{' '}
+          Do not have an account?{' '}
           <Link href="/register" className="text-primary hover:underline font-medium">
             Sign up here
           </Link>
@@ -118,5 +120,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<p className="text-center text-sm text-muted-foreground">Loading...</p>}>
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -4,12 +4,23 @@ import { CartItem, Product } from '@/types';
 interface CartState {
   items: CartItem[];
   total: number;
+  promoCode: string | null;
+  promoDiscount: number;
 }
 
 const initialState: CartState = {
   items: [],
   total: 0,
+  promoCode: null,
+  promoDiscount: 0,
 };
+
+function recalculateTotal(state: CartState) {
+  state.total = state.items.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0
+  );
+}
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -28,11 +39,11 @@ const cartSlice = createSlice({
         });
       }
       
-      state.total = state.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      recalculateTotal(state);
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(item => item.id !== action.payload);
-      state.total = state.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      recalculateTotal(state);
     },
     updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
       const item = state.items.find(item => item.id === action.payload.id);
@@ -42,14 +53,31 @@ const cartSlice = createSlice({
           state.items = state.items.filter(i => i.id !== action.payload.id);
         }
       }
-      state.total = state.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      recalculateTotal(state);
+    },
+    applyPromo: (state, action: PayloadAction<{ code: string; discount: number }>) => {
+      state.promoCode = action.payload.code;
+      state.promoDiscount = action.payload.discount;
+    },
+    clearPromo: (state) => {
+      state.promoCode = null;
+      state.promoDiscount = 0;
     },
     clearCart: (state) => {
       state.items = [];
       state.total = 0;
+      state.promoCode = null;
+      state.promoDiscount = 0;
     },
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  updateQuantity,
+  applyPromo,
+  clearPromo,
+  clearCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -6,11 +6,12 @@ import authSlice from './features/auth/authSlice';
 import cartSlice from './features/cart/cartSlice';
 import themeSlice from './features/theme/themeSlice';
 import bookmarkSlice from './features/bookmark/bookmarkSlice';
+import ordersSlice from './features/orders/ordersSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'cart', 'theme', 'bookmark'],
+  whitelist: ['auth', 'cart', 'theme', 'bookmark', 'orders'],
 };
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   cart: cartSlice,
   theme: themeSlice,
   bookmark: bookmarkSlice,
+  orders: ordersSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
