@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const sidebarItems = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
@@ -43,9 +44,15 @@ export default function DashboardLayout({
   if (!isAuthenticated) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <p>Please log in to access your dashboard.</p>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <Skeleton className="h-80 rounded-lg" />
+          <div className="lg:col-span-3 space-y-4">
+            <Skeleton className="h-10 w-64" />
+            <Skeleton className="h-32 rounded-lg" />
+            <Skeleton className="h-32 rounded-lg" />
+          </div>
         </div>
+        <p className="sr-only">Redirecting to login</p>
       </div>
     );
   }

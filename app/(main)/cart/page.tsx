@@ -14,9 +14,11 @@ import { calculatePromoDiscount, findOfferByCode } from '@/lib/promo';
 import { getCartTotals } from '@/lib/cartTotals';
 import { mockOffers } from '@/data/mockData';
 import { toast } from 'sonner';
+import CheckoutSteps from '@/components/layout/CheckoutSteps';
 
 export default function CartPage() {
   const { items, total, promoCode, promoDiscount } = useAppSelector((state) => state.cart);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [promoInput, setPromoInput] = useState(promoCode ?? '');
@@ -31,6 +33,13 @@ export default function CartPage() {
   };
 
   const handleCheckout = () => {
+    if (!isAuthenticated) {
+      toast.message('Sign in to save your order', {
+        description: 'You will return here after login.',
+      });
+      router.push('/login?redirect=/checkout');
+      return;
+    }
     router.push('/checkout');
   };
 
@@ -70,9 +79,21 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pb-28 lg:pb-8">
       <div className="space-y-8">
+        <CheckoutSteps current="cart" />
         <h1 className="text-3xl font-bold">Shopping Cart</h1>
+
+        {!isAuthenticated && (
+          <div className="rounded-lg border bg-muted/50 px-4 py-3 text-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span>Sign in to checkout and track orders in your dashboard.</span>
+            <Link href="/login?redirect=/checkout">
+              <Button size="sm" variant="secondary">
+                Sign in
+              </Button>
+            </Link>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
@@ -207,6 +228,18 @@ export default function CartPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur p-4 lg:hidden">
+        <div className="container mx-auto flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs text-muted-foreground">Total</p>
+            <p className="text-lg font-bold">${grandTotal.toFixed(2)}</p>
+          </div>
+          <Button onClick={handleCheckout} size="lg" className="flex-1 max-w-xs">
+            Checkout
+          </Button>
         </div>
       </div>
     </div>

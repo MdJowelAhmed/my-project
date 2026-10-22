@@ -15,6 +15,8 @@ import { getCartTotals } from '@/lib/cartTotals';
 import { Order } from '@/types';
 import { CheckCircle2, ShoppingBag } from 'lucide-react';
 import { toast } from 'sonner';
+import CheckoutSteps from '@/components/layout/CheckoutSteps';
+import { Copy } from 'lucide-react';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -49,18 +51,30 @@ export default function CheckoutPage() {
     );
   }
 
+  const copyOrderId = () => {
+    if (!placedOrderId) return;
+    navigator.clipboard.writeText(placedOrderId);
+    toast.success('Order ID copied');
+  };
+
   if (placedOrderId) {
     return (
-      <div className="container mx-auto px-4 py-16 max-w-lg">
+      <div className="container mx-auto px-4 py-16 max-w-lg space-y-8">
+        <CheckoutSteps current="done" />
         <Card>
           <CardContent className="p-8 text-center space-y-6">
             <CheckCircle2 className="h-16 w-16 mx-auto text-green-600" />
             <div className="space-y-2">
               <h1 className="text-2xl font-bold">Order placed!</h1>
               <p className="text-muted-foreground">
-                Thank you. Your mock order <strong>#{placedOrderId}</strong> has been saved to your
-                dashboard.
+                Thank you. Your mock order has been saved to your dashboard.
               </p>
+              <div className="flex items-center justify-center gap-2 pt-2">
+                <code className="text-sm bg-muted px-2 py-1 rounded">{placedOrderId}</code>
+                <Button type="button" variant="outline" size="icon" aria-label="Copy order ID" onClick={copyOrderId}>
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/dashboard/orders">
@@ -120,6 +134,7 @@ export default function CheckoutPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto space-y-8">
+        <CheckoutSteps current="checkout" />
         <div>
           <h1 className="text-3xl font-bold">Checkout</h1>
           <p className="text-muted-foreground">Demo checkout — no real payment is processed.</p>
@@ -138,6 +153,7 @@ export default function CheckoutPage() {
                     onChange={(e) => setShippingAddress(e.target.value)}
                     placeholder="Street, city, country"
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
               </CardContent>
@@ -153,6 +169,7 @@ export default function CheckoutPage() {
                       type="button"
                       variant={paymentMethod === method ? 'default' : 'outline'}
                       onClick={() => setPaymentMethod(method)}
+                      disabled={isSubmitting}
                     >
                       {method}
                     </Button>

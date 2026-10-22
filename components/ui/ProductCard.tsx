@@ -12,6 +12,7 @@ import { toggleBookmark } from '@/lib/features/bookmark/bookmarkSlice';
 import { useCartAnimation } from '@/hooks/useCartAnimation';
 import { useWishlistAnimation } from '@/hooks/useWishlistAnimation';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 interface ProductCardProps {
   product: Product;
@@ -81,6 +82,12 @@ export function ProductCard({ product }: ProductCardProps) {
 
     await animateToCart(e.currentTarget as HTMLElement);
     dispatch(addToCart(product));
+    toast.success('Added to cart', {
+      action: {
+        label: 'View cart',
+        onClick: () => window.location.assign('/cart'),
+      },
+    });
   };
 
   const handleBookmark = async (e: React.MouseEvent) => {
@@ -88,7 +95,9 @@ export function ProductCard({ product }: ProductCardProps) {
     e.stopPropagation();
 
     await animateToWishlist(e.currentTarget as HTMLElement);
+    const wasBookmarked = isBookmarked;
     dispatch(toggleBookmark(product));
+    toast.message(wasBookmarked ? 'Removed from wishlist' : 'Saved to wishlist');
   };
 
   const handleShare = (e: React.MouseEvent) => {
@@ -120,7 +129,7 @@ export function ProductCard({ product }: ProductCardProps) {
       case 'instagram':
         // Instagram doesn't support direct URL sharing, so we'll copy to clipboard
         navigator.clipboard.writeText(`${product.name} - ${productUrl}`);
-        alert('Product link copied to clipboard! You can paste it in your Instagram post.');
+        toast.success('Link copied for Instagram');
         setShowShareModal(false);
         return;
       default:
@@ -196,6 +205,7 @@ export function ProductCard({ product }: ProductCardProps) {
               variant="secondary"
               className="bg-white/90 hover:bg-white text-gray-800"
               onClick={handleBookmark}
+              aria-label={isBookmarked ? 'Remove from wishlist' : 'Add to wishlist'}
             >
               <Heart
                 className={`h-4 w-4 ${isBookmarked ? 'fill-red-500 text-red-500' : ''}`}
@@ -208,6 +218,7 @@ export function ProductCard({ product }: ProductCardProps) {
               className="bg-white/90 hover:bg-white text-gray-800"
               onClick={handleAddToCart}
               disabled={!product.inStock}
+              aria-label="Add to cart"
             >
               <ShoppingCart className="h-4 w-4" />
             </Button>

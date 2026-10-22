@@ -15,10 +15,18 @@ import {
 import { Order } from '@/types';
 import { Eye, Download, Package } from 'lucide-react';
 import { useAppSelector } from '@/lib/hooks';
+import OrderStatusTimeline from '@/components/orders/OrderStatusTimeline';
+import { toast } from 'sonner';
 
 export default function OrdersPage() {
   const orders = useAppSelector((state) => state.orders.orders);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+  const handleDemoInvoice = () => {
+    toast.message('Invoice download (demo)', {
+      description: 'PDF export would be available in a live store.',
+    });
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -73,12 +81,14 @@ export default function OrdersPage() {
                         <DialogTitle>Order Details - #{order.id}</DialogTitle>
                       </DialogHeader>
                       <div className="space-y-6">
-                        {/* Order Status */}
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium">Status:</span>
-                          <Badge variant={getStatusColor(order.status)}>
-                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                          </Badge>
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <span className="font-medium">Status:</span>
+                            <Badge variant={getStatusColor(order.status)}>
+                              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            </Badge>
+                          </div>
+                          <OrderStatusTimeline status={order.status} />
                         </div>
 
                         {/* Order Items */}
@@ -131,7 +141,7 @@ export default function OrdersPage() {
                           </div>
                         </div>
 
-                        <Button className="w-full">
+                        <Button type="button" className="w-full" onClick={handleDemoInvoice}>
                           <Download className="h-4 w-4 mr-2" />
                           Download Invoice
                         </Button>
@@ -139,7 +149,7 @@ export default function OrdersPage() {
                     </DialogContent>
                   </Dialog>
 
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" type="button" onClick={handleDemoInvoice}>
                     <Download className="h-4 w-4 mr-2" />
                     Invoice
                   </Button>

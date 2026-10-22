@@ -10,6 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import { useAppDispatch } from '@/lib/hooks';
 import { login } from '@/lib/features/auth/authSlice';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ export default function RegisterPage() {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match');
+      toast.error('Passwords do not match');
       return;
     }
 
@@ -57,6 +58,7 @@ export default function RegisterPage() {
       }));
       
       setIsLoading(false);
+      toast.success('Account created (demo)');
       router.push('/');
     }, 1000);
   };

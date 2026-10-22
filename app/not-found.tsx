@@ -8,9 +8,20 @@ export default function NotFound() {
       <p className="text-muted-foreground max-w-md">
         The page you are looking for does not exist or was moved.
       </p>
-      <Link href="/">
-        <Button>Back to home</Button>
-      </Link>
+      <div className="flex flex-wrap gap-3 justify-center">
+        <Link href="/">
+          <Button>Home</Button>
+        </Link>
+        <Link href="/products">
+          <Button variant="outline">Products</Button>
+        </Link>
+        <Link href="/cart">
+          <Button variant="outline">Cart</Button>
+        </Link>
+        <Link href="/support">
+          <Button variant="outline">Support</Button>
+        </Link>
+      </div>
     </div>
   );
 }

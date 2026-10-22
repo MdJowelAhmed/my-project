@@ -11,6 +11,7 @@ import { useAppDispatch } from '@/lib/hooks';
 import { login } from '@/lib/features/auth/authSlice';
 import { mockUser } from '@/data/mockData';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { toast } from 'sonner';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -34,6 +35,7 @@ function LoginForm() {
         token: 'mock-jwt-token',
       }));
       setIsLoading(false);
+      toast.success('Welcome back');
       router.push(redirectTo.startsWith('/') ? redirectTo : '/');
     }, 1000);
   };

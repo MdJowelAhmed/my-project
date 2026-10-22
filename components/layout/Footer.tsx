@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import FooterNewsletter from '@/components/layout/FooterNewsletter';
 import {
   Facebook,
   Twitter,
@@ -103,17 +103,7 @@ export default function Footer() {
               </div>
             </div>
             
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Newsletter</h4>
-              <div className="flex space-x-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="text-sm"
-                />
-                <Button size="sm">Subscribe</Button>
-              </div>
-            </div>
+            <FooterNewsletter />
           </div>
         </div>
 

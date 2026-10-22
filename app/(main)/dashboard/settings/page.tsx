@@ -12,6 +12,7 @@ import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { updateProfile } from '@/lib/features/auth/authSlice';
 import { toggleTheme } from '@/lib/features/theme/themeSlice';
 import { User, Mail, Phone, MapPin, Eye, EyeOff } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function SettingsPage() {
   const { user } = useAppSelector((state) => state.auth);
@@ -40,18 +41,17 @@ export default function SettingsPage() {
   const handleProfileUpdate = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(updateProfile(profileData));
-    // Add success notification here
+    toast.success('Profile updated (saved locally)');
   };
 
   const handlePasswordChange = (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert('New passwords do not match');
+      toast.error('New passwords do not match');
       return;
     }
-    // Handle password change logic here
     setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-    // Add success notification here
+    toast.success('Password updated (demo — not sent to a server)');
   };
 
   const handleThemeToggle = () => {
@@ -80,7 +80,17 @@ export default function SettingsPage() {
                 </AvatarFallback>
               </Avatar>
               <div>
-                <Button variant="outline">Change Avatar</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() =>
+                    toast.message('Avatar upload (demo)', {
+                      description: 'File upload would open here in production.',
+                    })
+                  }
+                >
+                  Change Avatar
+                </Button>
                 <p className="text-sm text-muted-foreground mt-2">
                   JPG, PNG or GIF. Max size 2MB.
                 </p>
